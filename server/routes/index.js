@@ -2,6 +2,7 @@ const express = require('express')
 const registerUser = require('../controller/registerUser')
 const router = express.Router()
 const checkEmail = require('../controller/checkEmail')
+const checkPassword = require ('../controller/checkPassword')
 
 //create user api
 router.post('/register',registerUser)
@@ -9,6 +10,10 @@ router.post('/register',registerUser)
 //check user email api
 
 router.post('/email',checkEmail)
+
+//check password api
+
+router.post('/password',checkPassword)
 
 
 module.exports = router
