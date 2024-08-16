@@ -8,7 +8,7 @@ async function checkEmail(request,response) {
 
         if(!checkEmail){
             return response.status(400).json({
-                message : "USer Doesn't Exist",
+                message : "User Doesn't Exist",
                 error : true
             })
         }
