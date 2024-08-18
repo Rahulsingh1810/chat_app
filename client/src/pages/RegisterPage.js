@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IoClose } from "react-icons/io5";
 import { Link } from 'react-router-dom';
-import bgvdo from "../assets/bgvideo"
+import bgvdo from "../assets/bgvideo/bgvdo.mp4"
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -27,6 +27,7 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log("data",data)
   };
 
   const handleOnChange = (e) => {
@@ -37,6 +38,7 @@ const RegisterPage = () => {
     }));
   };
 
+    
   return (
     <div className="relative flex items-center justify-center h-screen">
       <video 
@@ -50,7 +52,7 @@ const RegisterPage = () => {
         Your browser does not support the video tag.
       </video>
 
-      <div className="relative bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4 mx-auto z-10 backdrop-blur-sm bg-opacity-75">
+      <div className="relative bg-white w-full max-w-sm  rounded overflow-hidden p-4 mx-auto z-10 backdrop-blur-sm bg-opacity-30">
         <h3 className="text-center">Welcome to BubbleTalk!</h3>
 
         <form className="grid gap-4 mt-5" onSubmit={handleSubmit}>
