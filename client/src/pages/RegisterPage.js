@@ -56,7 +56,8 @@ const RegisterPage = () => {
             name: "",
             email: "",
             password: "",
-            profile_pic: ""
+            profile_pic: "",
+            userId: "",
         })
 
           navigate('/email')

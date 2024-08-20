@@ -13,6 +13,7 @@ const CheckEmailPage = () => {
   });
 
 
+
   const navigate = useNavigate()
 
   
@@ -23,7 +24,7 @@ const CheckEmailPage = () => {
 
    
 
-    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/email`
+    const URL = `http://localhost:8080/api/email`
 
 
       try {
@@ -47,7 +48,7 @@ const CheckEmailPage = () => {
         toast.error(error?.response?.data?.message)
       }
 
-    console.log("data",data)
+   
   };
 
   const handleOnChange = (e) => {
