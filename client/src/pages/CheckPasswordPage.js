@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import bgvdo from "../assets/bgvideo/bgvdo.mp4"
@@ -6,6 +6,7 @@ import bgvdo from "../assets/bgvideo/bgvdo.mp4"
 import axios from "axios"
 import toast from 'react-hot-toast';
 import { FaUserAlt } from "react-icons/fa";
+import Avatar from '../components/Avatar';
 
 const CheckPasswordPage = () => {
 
@@ -18,6 +19,12 @@ const CheckPasswordPage = () => {
   const location = useLocation()
 
   console.log("location",location.state)
+
+  useEffect(()=>{
+    if(!location?.state?.name){
+      navigate('/email')
+    }
+  },[])
 
   
 
@@ -74,10 +81,21 @@ const CheckPasswordPage = () => {
 
     <div className="relative bg-white w-full max-w-md mx:2 rounded overflow-hidden p-4 md:mx-auto z-10 backdrop-blur-sm bg-opacity-30">
 
-      <div className='flex justify-center items-center w-fit mx-auto mb-2'>
-        <FaUserAlt
-        size={55}/>
+      <div className='w-fit mx-auto mb-2 flex justify-center items-center flex-col'>
+        {/* <FaUserAlt
+        size={55}/> */}
+        <Avatar
+        width={55}
+        height={55}
+        name={location?.state?.name}
+        imageUrl={location?.state?.profile_pic}/>
+
+          <h2 className='font-semibold text-lg mt-1'>{location?.state?.name}</h2>
+
+
       </div>
+
+
       <h3 className="text-center">Welcome to BubbleTalk!</h3>
 
       <form className="grid gap-4 mt-3" onSubmit={handleSubmit}>
@@ -106,7 +124,7 @@ const CheckPasswordPage = () => {
       </form>
 
       <p className="my-3 text-center">
-        New User? <Link to={"/register"} className="hover:text-primary font-semibold">Register</Link>
+        <Link to={"/forgot-password"} className="hover:text-primary font-semibold">Forgot Password</Link>
       </p>
     </div>
   </div>
