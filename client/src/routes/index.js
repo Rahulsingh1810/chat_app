@@ -11,7 +11,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "",
         element:<App/>,
         children : [
             {

@@ -24,7 +24,7 @@ const CheckEmailPage = () => {
 
    
 
-    const URL = `http://localhost:8080/api/email`
+    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/email`
 
 
       try {

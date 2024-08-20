@@ -12,13 +12,14 @@ const CheckPasswordPage = () => {
 
   const [data, setData] = useState({
     password: "",
+    userId : ""
   });
 
 
   const navigate = useNavigate()
   const location = useLocation()
 
-  console.log("location",location.state)
+
 
   useEffect(()=>{
     if(!location?.state?.name){
@@ -34,9 +35,20 @@ const CheckPasswordPage = () => {
 
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/password`
 
+    
 
       try {
-        const response = await axios.post(URL,data)
+        const response = await axios({
+          method : 'post',
+          url : URL,
+          data : {
+            userId : location?.state?._id,
+              password : data.password
+          },
+          withCredentials : true,
+          
+
+        })
         
         toast.success(response.data.message)
         
@@ -54,7 +66,7 @@ const CheckPasswordPage = () => {
         toast.error(error?.response?.data?.message)
       }
 
-    console.log("data",data)
+   
   };
 
   const handleOnChange = (e) => {
