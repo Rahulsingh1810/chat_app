@@ -10,51 +10,36 @@ import Avatar from '../components/Avatar';
 
 const CheckPasswordPage = () => {
 
-  const [data, setData] = useState({
-    password: "",
-  });
+  const [data, setData] = useState({ password: "" });
+  const navigate = useNavigate();
+  const location = useLocation();
 
-
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  console.log("location",location.state)
-
-  useEffect(()=>{
-    if(!location?.state?.name){
-      navigate('/email')
+  useEffect(() => {
+    if (!location.state || !location.state.name) {
+      navigate('/email');
     }
-  },[])
+  }, [location, navigate]);
 
-  
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/password`
+    
 
+    const URL = `${process.env.REACT_APP_BACKEND_URL}/api/password`;
 
-      try {
-        const response = await axios.post(URL,data)
-        
-        toast.success(response.data.message)
-        
-        if(response.data.success){
-          setData({
-            password: "",
-            
-        })
+    try {
+      const response = await axios.post(URL, data);
 
-          navigate('/')
-        }
+      toast.success(response.data.message);
 
-
-      } catch (error) {
-        toast.error(error?.response?.data?.message)
+      if (response.data.success) {
+        setData({ password: "" });
+        navigate('/');
       }
-
-    console.log("data",data)
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   const handleOnChange = (e) => {
@@ -65,42 +50,38 @@ const CheckPasswordPage = () => {
     }));
   };
 
+  if (!location.state || !location.state.name) {
+    return null; // Or some loading/spinner component
+  }
 
   return (
     <div className="relative flex items-center justify-center h-screen">
-    <video 
-      className="absolute top-0 left-0 w-full h-full object-cover z-0" 
-      autoPlay 
-      loop 
-      muted 
-      playsInline
-    >
-      <source src={bgvdo} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src={bgvdo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-    <div className="relative bg-white w-full max-w-md mx:2 rounded overflow-hidden p-4 md:mx-auto z-10 backdrop-blur-sm bg-opacity-30">
+      <div className="relative bg-white w-full max-w-md mx:2 rounded overflow-hidden p-4 md:mx-auto z-10 backdrop-blur-sm bg-opacity-30">
+        <div className='w-fit mx-auto mb-2 flex justify-center items-center flex-col'>
+          <Avatar
+            width={55}
+            height={55}
+            name={location.state.name}
+            imageUrl={location.state.profile_pic}
+          />
+          <h2 className='font-semibold text-lg mt-1'>{location.state.name}</h2>
+        </div>
 
-      <div className='w-fit mx-auto mb-2 flex justify-center items-center flex-col'>
-        {/* <FaUserAlt
-        size={55}/> */}
-        <Avatar
-        width={55}
-        height={55}
-        name={location?.state?.name}
-        imageUrl={location?.state?.profile_pic}/>
+        <h3 className="text-center">Welcome to BubbleTalk!</h3>
 
-          <h2 className='font-semibold text-lg mt-1'>{location?.state?.name}</h2>
-
-
-      </div>
-
-
-      <h3 className="text-center">Welcome to BubbleTalk!</h3>
-
-      <form className="grid gap-4 mt-3" onSubmit={handleSubmit}>
-
-      <div className="flex flex-col gap-1">
+        <form className="grid gap-4 mt-3" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-1">
             <label htmlFor="password">Password</label>
             <input
               type="password"
@@ -114,21 +95,18 @@ const CheckPasswordPage = () => {
             />
           </div>
 
-        
+          <button className="bg-primary text-lg border rounded px-4 py-1 mt-4 hover:bg-secondary font-bold text-white leading-relaxed tracking-wide">
+            Login
+          </button>
+        </form>
 
-       
-
-        <button className="bg-primary text-lg border rounded px-4 py-1 mt-4 hover:bg-secondary font-bold text-white leading-relaxed tracking-wide">
-          Login
-        </button>
-      </form>
-
-      <p className="my-3 text-center">
-        <Link to={"/forgot-password"} className="hover:text-primary font-semibold">Forgot Password</Link>
-      </p>
+        <p className="my-3 text-center">
+          <Link to={"/forgot-password"} className="hover:text-primary font-semibold">Forgot Password</Link>
+        </p>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default CheckPasswordPage
+export default CheckPasswordPage;
+
