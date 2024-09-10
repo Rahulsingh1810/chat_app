@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import MessagePage from "../components/MessagePage";
 import AuthLayouts from "../layout"
 import ForgotPassword from "../pages/ForgotPassword";
+import Gemini from "../pages/Gemini";
 
 
 const router = createBrowserRouter([
@@ -17,15 +18,15 @@ const router = createBrowserRouter([
             {
                 path : "register",
                 element : <AuthLayouts> <RegisterPage/> </AuthLayouts>
-            },
-            {
+            },            {
                 path : "email",
                 element : <AuthLayouts> <CheckEmailPage/> </AuthLayouts>
             },
             {
                 path : "password",
                 element : <AuthLayouts> <CheckPasswordPage/> </AuthLayouts>
-            },{
+            },
+            {
                 path : "forgot-password",
                 element : <AuthLayouts><ForgotPassword/></AuthLayouts>
             },
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
                        element : <MessagePage/>
                     }
                 ]
+            },
+            {
+                path : "gemini",
+                element : <AuthLayouts> <Gemini/> </AuthLayouts>
             }
         ]
     }
