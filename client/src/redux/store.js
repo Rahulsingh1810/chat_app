@@ -7,3 +7,9 @@ export const store = configureStore({
     user : useReducer
   },
 })
+
+// Redux action to update user state
+export const updateUser = (userData) => ({
+  type: 'UPDATE_USER',
+  payload: userData,
+});
