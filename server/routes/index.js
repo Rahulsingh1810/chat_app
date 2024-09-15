@@ -30,5 +30,9 @@ router.get('/logout',logout)
 
 router.post('/update-user',updateUserDetails)
 
+//get all users api
+
+router.get('/search-users', require('../controller/searchUsers'));
+
 
 module.exports = router
