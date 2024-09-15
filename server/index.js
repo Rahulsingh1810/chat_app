@@ -4,6 +4,7 @@ require('dotenv').config()
 const connectDB = require('./config/connectDB')
 const router = require('./routes/index')
 const cookiesParser = require('cookie-parser')
+const friendRoutes = require('./routes/friendRoutes')
 
 const app = express()
 app.use(cors({
@@ -24,8 +25,8 @@ app.get('/',(request,response)=>{
 })
 
 // api endpoints
-
-app.use('/api',router)
+app.use('/api', router)
+app.use('/api', friendRoutes)
 
 connectDB().then(()=>{
     app.listen(PORT,()=>{
