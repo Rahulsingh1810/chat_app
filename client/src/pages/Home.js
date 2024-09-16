@@ -36,14 +36,14 @@ const Home = () => {
       </section>
 
       {/* Toggle button for mobile */}
-      {isMobile && (
+      {/* {isMobile && (
         <button
           className="fixed bottom-4 right-4 bg-gray-700 text-white p-3 rounded-full z-20"
           onClick={() => setShowSidebar(!showSidebar)}
         >
           {showSidebar ? 'Close' : 'Menu'}
         </button>
-      )}
+      )} */}
     </div>
   );
 };

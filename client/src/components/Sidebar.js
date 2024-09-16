@@ -14,7 +14,7 @@ import logo from '../assets/logos/logo.png';
 const Sidebar = () => {
     const user = useSelector(state => state?.user);
     const [editUserOpen, setEditUserOpen] = useState(false);
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    
     const navigate = useNavigate();
     const [searchDialogOpen, setSearchDialogOpen] = useState(false);
     const [friends, setFriends] = useState([]);
@@ -79,14 +79,20 @@ const Sidebar = () => {
                 {/* Bottom Section with User Details and Logout */}
                 <div className="flex flex-col justify-center items-center space-y-4">
                     {/* User Details Button */}
-                    <button className="mx-auto" title={user?.name} onClick={() => setEditUserOpen(true)}>
-                        <Avatar 
-                            width={35} 
-                            height={35} 
-                            name={user?.name} 
-                            imageUrl={user?.profile_pic}
-                            className="bg-gray-600 text-white"
-                        />
+                    <button 
+                        className="mx-auto w-10 h-10 rounded-full overflow-hidden bg-gray-600 flex items-center justify-center" 
+                        title={user?.name} 
+                        onClick={() => setEditUserOpen(true)}
+                    >
+                        {user?.name && (
+                            <Avatar 
+                                width={40}
+                                height={40}
+                                name={user.name}
+                                imageUrl={user.profile_pic}
+                                UserId={user.id}
+                            />
+                        )}
                     </button>
 
                     {/* Logout Button */}
@@ -101,7 +107,7 @@ const Sidebar = () => {
             </div>
 
             {/* Second Column (Friends list or Dialogs) */}
-            <div className={`flex-1 p-4 overflow-y-auto ${sidebarOpen || showFriendsList ? 'block' : 'hidden'} md:block`}>
+            <div className={`flex-1 p-4 overflow-y-auto ${ showFriendsList ? 'block' : 'hidden'} md:block`}>
                 {showFriendsList && (
                     <div className="text-white">
                         <h2 className='text-xl font-bold p-2'>Friends</h2>
@@ -112,7 +118,7 @@ const Sidebar = () => {
                                     height={40} 
                                     name={friend.name} 
                                     imageUrl={friend.profile_pic}
-                                    className="bg-gray-600 text-white"
+                                    UserId={friend._id}
                                 />
                                 <span className="ml-2">{friend.name}</span>
                             </div>
@@ -138,13 +144,7 @@ const Sidebar = () => {
                 {editUserOpen && <EditUserDetails onClose={() => setEditUserOpen(false)} user={user} />}
             </div>
 
-            {/* Toggle Button for Sidebar on Mobile */}
-            <button
-                className="fixed bottom-4 right-4 bg-gray-700 text-white p-3 rounded-full md:hidden"
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-            >
-                {sidebarOpen ? 'Close' : 'Chats'}
-            </button>
+            {/* Toggle Button for Sidebar on Mobile removed */}
         </div>
     );
 };
