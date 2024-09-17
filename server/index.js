@@ -1,35 +1,37 @@
-const express = require('express')
-const cors = require ('cors')
-require('dotenv').config()
-const connectDB = require('./config/connectDB')
-const router = require('./routes/index')
-const cookiesParser = require('cookie-parser')
-const friendRoutes = require('./routes/friendRoutes')
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+const connectDB = require('./config/connectDB');
+const router = require('./routes/index');
+const cookiesParser = require('cookie-parser');
+const friendRoutes = require('./routes/friendRoutes');
+const userRoutes = require('./routes/userRoutes'); // Add this line
 
-const app = express()
+const app = express();
 app.use(cors({
-    origin : process.env.FRONTEND_URL,
-    credentials : true
-}))
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}));
 
-app.use(express.json())
+app.use(express.json());
 
-app.use(cookiesParser())
+app.use(cookiesParser());
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080;
 
-app.get('/',(request,response)=>{
+app.get('/', (request, response) => {
     response.json({
-        message : "server running at " + PORT
-    })
-})
+        message: "server running at " + PORT
+    });
+});
 
 // api endpoints
-app.use('/api', router)
-app.use('/api', friendRoutes)
+app.use('/api', router);
+app.use('/api', friendRoutes);
+app.use('/api', userRoutes); // Add this line
 
-connectDB().then(()=>{
-    app.listen(PORT,()=>{
-        console.log("server running at " + PORT)
-    })
-})
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("server running at " + PORT);
+    });
+});
