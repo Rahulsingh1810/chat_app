@@ -6,6 +6,7 @@ const checkPassword = require ('../controller/checkPassword')
 const userDetails = require('../controller/useDetails')
 const logout = require('../controller/logout')
 const updateUserDetails = require('../controller/updateUserDetails')
+const {sendMessage,getMessages} = require('../controller/messageController')
 
 //create user api
 router.post('/register',registerUser)
@@ -33,6 +34,16 @@ router.post('/update-user',updateUserDetails)
 //get all users api
 
 router.get('/search-users', require('../controller/searchUsers'));
+
+//send message api
+
+router.post('/send-message',sendMessage)
+
+//get messages api
+
+router.get('/get-messages/:friendId',getMessages)
+
+
 
 
 module.exports = router
