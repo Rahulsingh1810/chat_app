@@ -49,7 +49,7 @@ const EditUserDetails = ({ onClose, user }) => {
       );
 
       toast.success('User details updated successfully!');
-      console.log('Response:', response.data);
+      
       onClose();
 
     } catch (error) {

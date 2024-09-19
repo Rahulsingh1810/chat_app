@@ -4,7 +4,7 @@ const getUserDetailsFromToken = require('../helpers/getUserDetailsFromToken');
 const sendMessage = async (req, res) => {
   try {
     const token = req.cookies.token || "";
-    console.log('Token:', token);
+    
     const sender = await getUserDetailsFromToken(token);
     const { receiverId, text, imageUrl, videoUrl } = req.body;
 
@@ -42,11 +42,11 @@ const sendMessage = async (req, res) => {
 const getMessages = async (req, res) => {
   try {
     const token = req.cookies.token || "";
-    console.log('Token:', token);
+    
     const user = await getUserDetailsFromToken(token);
-    console.log('User:', user);
+   
     const { friendId } = req.params;
-    console.log('FriendId:', friendId);
+    
 
     const conversation = await ConversationModel.findOne({
       $or: [
@@ -55,7 +55,7 @@ const getMessages = async (req, res) => {
       ]
     }).populate('messages');
 
-    console.log('Conversation:', conversation);
+    
 
     if (!conversation) {
       return res.status(404).json({ message: "No conversation found" });

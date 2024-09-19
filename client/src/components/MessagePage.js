@@ -26,14 +26,12 @@ const MessagePage = () => {
 
   const fetchMessages = async () => {
     try {
-        console.log('Fetching messages for friendId:', friendId);
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-messages/${friendId}`, { withCredentials: true });
-        console.log('Response data:', response.data);
-        setMessages(response.data);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-messages/${friendId}`, { withCredentials: true });
+      setMessages(response.data);
     } catch (error) {
-        console.error('Error fetching messages:', error);
+      console.error('Error fetching messages:', error);
     }
-};
+  };
 
   useEffect(() => {
     if (friendId) {
@@ -72,11 +70,11 @@ const MessagePage = () => {
           receiverId: friendId,
           text: inputMessage,
           imageUrl: fileUrl,
-        },  {
+        }, {
           headers: {
-            Authorization: `Bearer ${token}` // Add this line
+            Authorization: `Bearer ${token}`
           },
-          withCredentials: true // Ensure cookies are sent
+          withCredentials: true
         });
 
         const newMessage = response.data;
@@ -96,11 +94,9 @@ const MessagePage = () => {
   if (friendStatus === 'loading') {
     return <div>Loading...</div>;
   }
-
   if (friendStatus === 'failed') {
     return <div>Error loading friend details</div>;
   }
-
   if (!friend) {
     return null;
   }
@@ -136,26 +132,40 @@ const MessagePage = () => {
           <FaEllipsisV />
         </button>
       </div>
+      
       {/* Chat content */}
-      <div className="flex-1 p-4 overflow-y-auto" style={{ 
-        backgroundImage: `url(${wallpaper})`, 
-        backgroundSize: 'cover', 
-        backgroundPosition: 'center', 
-        backgroundRepeat: 'no-repeat',
-        imageRendering: 'auto'
-      }}>
+      <div 
+        className="flex-1 p-4 overflow-y-auto flex flex-col" 
+        style={{ 
+          backgroundImage: `url(${wallpaper})`, 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
+          backgroundRepeat: 'no-repeat',
+          imageRendering: 'auto'
+        }}
+      >
         {messages.map((message, index) => (
-          <div key={index} className={`mb-2 ${message.sender === currentUser._id ? 'text-right' : 'text-left'}`}>
-            <div className={`inline-block p-2 rounded-lg ${message.sender === currentUser._id ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'}`}>
+          <div 
+            key={index} 
+            className={`mb-4 flex ${message.sender === currentUser._id ? 'justify-end' : 'justify-start'}`}
+          >
+            <div 
+              className={`max-w-xs p-3 rounded-lg ${
+                message.sender === currentUser._id 
+                  ? 'bg-blue-500 text-white' 
+                  : 'bg-gray-300 text-black'
+              }`}
+            >
               {message.text}
               {message.imageUrl && (
-                <img src={message.imageUrl} alt="Uploaded" className="mt-2 max-w-xs rounded" />
+                <img src={message.imageUrl} alt="Uploaded" className="mt-2 max-w-full rounded" />
               )}
             </div>
           </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
+      
       {/* Input field and send button */}
       <div className="bg-gray-800 p-4">
         <div className="flex items-center">
