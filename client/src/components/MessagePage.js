@@ -5,6 +5,7 @@ import Avatar from './Avatar';
 import { FaEllipsisV } from 'react-icons/fa';
 import { fetchFriend } from '../redux/friendSlice';
 import { IoArrowBack } from 'react-icons/io5';
+import wallpaper from '../assets/wallpaper/wall3.jpeg'; // Import the wallpaper image
 
 const MessagePage = () => {
   const { friendId } = useParams();
@@ -64,8 +65,25 @@ const MessagePage = () => {
         </button>
       </div>
       {/* Chat content */}
-      <div className="flex-1 p-4 overflow-y-auto">
+      <div className="flex-1 p-4 overflow-y-auto" style={{ 
+        backgroundImage: `url(${wallpaper})`, 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        backgroundRepeat: 'no-repeat',
+        imageRendering: 'auto' // Ensures the image is rendered at its best quality
+      }}>
         {/* Chat messages will go here */}
+      </div>
+      {/* Input field and send button */}
+      <div className="bg-gray-800 p-4">
+        <div className="flex items-center">
+          <input
+            type="text"
+            className="flex-1 p-2 rounded bg-gray-700 text-white"
+            placeholder="Type a message..."
+          />
+          <button className="ml-2 p-2 bg-blue-600 text-white rounded">Send</button>
+        </div>
       </div>
     </div>
   );
