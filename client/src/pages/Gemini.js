@@ -31,7 +31,7 @@ const Gemini = () => {
       );
 
       // Log the response for debugging
-      console.log("API Response:", response);
+      
 
       // Extract the generated content from the API response
       const generatedContent = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "No content available"; 
